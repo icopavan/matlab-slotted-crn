@@ -78,10 +78,10 @@ for t=1:T
     average_reward_channel = (total_reward_channel_initial+total_reward_channel)./(count_captured_channel_initial+count_captured_channel);
     average_reward_channel(isinf(average_reward_channel)==1)=0;
     average_reward_channel(isnan(average_reward_channel)==1)=0;
-    decisin_index_part2 = sqrt(p*ones(1,N)*sum(count_captured_channel_initial+count_captured_channel))./(count_captured_channel+count_captured_channel_initial);
-	decisin_index_part2(isinf(decisin_index_part2)==1)=0;
-    decisin_index_part2(isnan(decisin_index_part2)==1)=0;
-    decision_index = average_reward_channel + decisin_index_part2 ;
+    decision_index_part2 = sqrt(p*ones(1,N)*sum(count_captured_channel_initial+count_captured_channel))./(count_captured_channel+count_captured_channel_initial);
+	decision_index_part2(isinf(decision_index_part2)==1)=0;
+    decision_index_part2(isnan(decision_index_part2)==1)=0;
+    decision_index = average_reward_channel + decision_index_part2 ;
 end
 
 

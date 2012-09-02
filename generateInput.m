@@ -1,10 +1,10 @@
-function [ matrix,su_channel_set] = generateInput()
+function [ matrix,su_channel_set] = generateInput(T,mode)
 %GENERATEINPUT Summary of this function goes here
 %   Detailed explanation goes here
 
 % input
 N = 4 ; % 4个信道
-T = 500000; % 5000个slot 则输入矩阵大小为5000*4
+%T = 5000; % 5000个slot 则输入矩阵大小为5000*4
 M = 1; % 每个时隙从N个信道中选择一个信道去做捕包
 P = N; % 每个信道有一个licensed PU按照一定概率出现其持续长度符合一个柏松分布(TBD)
 S = 5; % 待商讨(TBD)是一个还是多个
@@ -29,7 +29,7 @@ su_set = [3 4 5 6 7]; % S = 5
     generatePU(T,pu_transition_matrix_idle) generatePU(T,pu_transition_matrix_idle)];
 
 %% 2nd stage generate SU
-mode = 5 ;
+% mode = 5 ;
 su_channel=[];
 su_channel_set={};
 if mode == 5 ;

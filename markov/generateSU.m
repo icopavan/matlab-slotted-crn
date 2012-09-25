@@ -4,7 +4,7 @@ function [ result ] = generateSU( num_slot,su_tmat )
 %   TBD pu_duration_parameter
 
 % 先用HMM的方式生成 改进以后再说
-[~,identity] = hmmgenerate(num_slot,su_tmat,ones(size(su_tmat,1),1)); % 数字为信道标号
+[~,identity] = hmmgenerate(num_slot,su_tmat,ones(size(su_tmat,1),1),randi(size(su_tmat,1))); % 数字为信道标号
 result = identity';
 end
 

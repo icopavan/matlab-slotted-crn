@@ -25,11 +25,25 @@ su2_tmat = [ 0 0 1;
 
 
 % generate pu traffic matrix 1 - pu_off 2 - pu_on
- pu_trafficmat = [generatePU(num_slot,pu_tmat_busy) generatePU(num_slot,pu_tmat_norm) generatePU(num_slot,pu_tmat_idle)];
+ pu_trafficmat = [generatePU(num_slot,pu_tmat_idle) generatePU(num_slot,pu_tmat_idle) generatePU(num_slot,pu_tmat_idle)];
 
  
 % generate su traffic and insert into pu traffic
-trafficmat = addSU(pu_trafficmat,num_slot,su1_tmat,su2_tmat,su_set);
+trafficmat = addSU(pu_trafficmat,num_slot,su1_tmat,su2_tmat,su_set,num_ch);
 
 
 % statistical verificatoin
+
+% method 1
+
+[ transition_matrix_su3, transition_matrix_su4] = verifyResult( trafficmat,pu_trafficmat,num_slot,su1_tmat,su2_tmat,su_set,num_ch );
+
+[transition_matrix_su3 su1_tmat]
+[transition_matrix_su4 su2_tmat]
+% 每次看两个信道然后看过大概整个时隙数完成之后统计称什么样子
+% for t=1:num_slot
+%     % PU
+%     
+%     % SU
+%     
+% end

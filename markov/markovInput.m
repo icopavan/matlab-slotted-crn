@@ -1,7 +1,7 @@
 % input parameters
 num_ch = 3 ; % 2个信道
 num_pu = num_ch ; % 每个信道一个主用户
-num_slot = 1000000; % 5000个slot 则输入矩阵大小为5000*3
+num_slot = 50000; % 5000个slot 则输入矩阵大小为5000*3
 num_sniffer = 2; % 两个sniffer
 num_su = 2; % 待商讨(TBD)是一个还是多个
 channel_set = [1 2 3];
@@ -48,11 +48,11 @@ trafficmat = addSU(pu_trafficmat,num_slot,su1_tmat,su2_tmat,su_set,num_ch);
 sniffer2=[transition_matrix_su3 su1_tmat transition_matrix_su4 su2_tmat]
 
 
-[ transition_matrix_su3_2sniffer ] = verifyResult_2sniffer( trafficmat,num_slot,num_ch,channel_set,user_set,3 );
-[ transition_matrix_su4_2sniffer ] = verifyResult_2sniffer( trafficmat,num_slot,num_ch,channel_set,user_set,4 );
-sniffer3=[transition_matrix_su3_2sniffer su1_tmat transition_matrix_su4_2sniffer su2_tmat]
+[ transition_matrix_su3_sniffer ] = verifyResult_2sniffer( trafficmat,num_slot,num_ch,channel_set,user_set,3,num_sniffer );
+[ transition_matrix_su4_sniffer ] = verifyResult_2sniffer( trafficmat,num_slot,num_ch,channel_set,user_set,4,num_sniffer );
+sniffer3=[transition_matrix_su3_sniffer su1_tmat transition_matrix_su4_sniffer su2_tmat]
 
-error = abs(([transition_matrix_su3_2sniffer transition_matrix_su4_2sniffer]-[transition_matrix_su3 transition_matrix_su4])./[transition_matrix_su3 transition_matrix_su4]) % 每次看两个信道然后看过大概整个时隙数完成之后统计称什么样子
+error = abs(([transition_matrix_su3_sniffer transition_matrix_su4_sniffer]-[transition_matrix_su3 transition_matrix_su4])./[transition_matrix_su3 transition_matrix_su4]) % 每次看两个信道然后看过大概整个时隙数完成之后统计称什么样子
 max_error = max(max(error))
 average_error = mean(mean(error))
 
@@ -63,3 +63,5 @@ average_error = mean(mean(error))
 % 10000     15%          4%
 % 100000    5%           2% 
 % 1000000   1%           0.4%
+
+[ total_reward,  reward_genie,  regret,total_reward_channel,count_captured_channel ] = ucb1Func( trafficmat,num_ch,num_ch );

@@ -1,11 +1,11 @@
-function [ total_reward,  reward_genie,  regret,total_reward_channel,count_captured_channel ] = ucb1NormalFunc( matrix,N,T )
+function [ total_reward,  reward_genie,  regret,total_reward_channel,count_captured_channel ] = ucb1NormalFunc( matrix,N,T,user_set )
 %UCB1FUNC Summary of this function goes here
 %   Detailed explanation goes here
 % 假设有一个sniffer
-target_index = [3 4 5]; % [3 4 5 6 7]
+target_index = [3]; % [3 4 5 6 7]
 
 % genie
-user_set = [1 2 3 4 5 6 7];
+% user_set = [1 2 3 4 5 6 7];
 matrix_genie = matrix; %target_index = [3 4 5];
 user_not_care = setdiff(user_set,target_index);
 for user = user_not_care

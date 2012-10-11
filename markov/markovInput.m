@@ -64,4 +64,5 @@ average_error = mean(mean(error))
 % 100000    5%           2% 
 % 1000000   1%           0.4%
 
-[ total_reward,  reward_genie,  regret,total_reward_channel,count_captured_channel ] = ucb1Func( trafficmat,num_ch,num_ch );
+% [ total_reward,  reward_genie,  regret,total_reward_channel,count_captured_channel ] = ucb1Func( trafficmat,num_ch,num_slot,user_set );
+[ total_reward,  reward_genie,  regret,total_reward_channel,count_captured_channel ] = ucb1NormalFunc( trafficmat,num_ch,num_slot,user_set )

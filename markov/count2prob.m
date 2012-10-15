@@ -6,5 +6,6 @@ function [ trm ] = count2prob( weight )
 
 trm = weight./repmat(sum(weight,2),1,num_ch);
 
+trm = [trm(:,1) trm(:,2) 1-trm(:,1)-trm(:,2)];
 end
 

@@ -6,6 +6,6 @@ for i=1:100
     result=result*TR;
 end
 LP =sum(result)/num_ch;
-
+LP = [LP(1),LP(2),1-LP(1)-LP(2)];
 end
 

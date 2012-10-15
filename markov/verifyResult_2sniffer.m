@@ -13,6 +13,7 @@ for t=1:num_slot
     trafficmat(t,:)=trafficmat(t,:).*ch_vector;
 end
 
+
 [ transition_matrix_su ] = getTransitionMatrix( trafficmat,target,channel_set,user_set);
 
 end

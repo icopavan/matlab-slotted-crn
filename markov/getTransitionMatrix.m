@@ -28,7 +28,7 @@ end
 transition_matrix_su = transition_count_matrix_su ./ ...
       repmat(sum(transition_count_matrix_su,2),1,3); 
       
-
+transition_matrix_su = [transition_matrix_su(:,1) transition_matrix_su(:,2) 1-transition_matrix_su(:,1)-transition_matrix_su(:,2)];
 
 end
 

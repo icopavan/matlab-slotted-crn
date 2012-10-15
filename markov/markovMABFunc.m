@@ -1,4 +1,4 @@
-function [capture_rate,trm_su1] = markovMABFunc( trafficmat,num_ch,num_slot )
+function [capture_rate,trm_su1,channel_history,observed_histroy,slot_capture] = markovMABFunc( trafficmat,num_ch,num_slot,genie_vector )
 %MARKOVMABFUNC Summary of this function goes here
 %   Detailed explanation goes here
 % 只看一个用户
@@ -14,11 +14,14 @@ updtMode = 1;
 c_su1 = ones(num_ch);
 % using weight to calculate probability
 trm_su1 = count2prob(c_su1);
+% trm_su1 = [ 0.2 0.6 0.2;
+%              0.2 0.2 0.6;
+%              0.6 0.2 0.2 ];
 % stationary distribution
 msd_su1 = getMarkovStableDistribution( trm_su1,num_ch );
 
 channel_su1 = 0;
-
+capture_channel = [];
 % the bigest loooooooop!
 for t=1:num_slot
     % sniffer decisioin 
@@ -60,6 +63,7 @@ for t=1:num_slot
     if observed_histroy(t)== target_su % captured
         % update
         slot_capture(t) = 1;
+        capture_channel=[capture_channel observed_histroy(t)];
     else % not captured
         slot_capture(t) = 0;
         if estiMode==1 % 按照稳定分布选一次
@@ -80,21 +84,26 @@ for t=1:num_slot
     end
     channel_su1 = sniffer_decision; % channel_su1 可能不变也可能被改变
     % update capture rate
-    tmp_capture_rate = sum(slot_capture)/length(slot_capture);
+    tmp_capture_rate = sum(slot_capture)/sum(genie_vector(1:t));
 	tmp_capture_rate(isinf(tmp_capture_rate)==1) = 0; 
 	tmp_capture_rate(isnan(tmp_capture_rate)==1) = 0; 
     capture_rate(t)= tmp_capture_rate;
     
     % update transition matrix
     % update mode
-    if t>1 % 从t-1开始判断起
-        if slot_capture(t-1)==1 && slot_capture(t)==1 % 连续捕获
-            % update
-            c_su1(channel_history(t-1),channel_history(t)) = c_su1(channel_history(t-1),channel_history(t)) + 1;
+    if updtMode==1 % 看连续捕获 估测算法有问题 去了解一下HMM　Estimation算法
+        if t>1 % 从t-1开始判断起
+            if slot_capture(t-1)==1 && slot_capture(t)==1 % 连续捕获
+               % update
+                c_su1(channel_history(t-1),channel_history(t)) = c_su1(channel_history(t-1),channel_history(t)) + 1;
+            end
+            %update
+            trm_su1 = count2prob(c_su1);
+            msd_su1 = getMarkovStableDistribution( trm_su1,num_ch );
         end
-        % update
-        trm_su1 = count2prob(c_su1);
-        msd_su1 = getMarkovStableDistribution( trm_su1,num_ch );
+    elseif updtMode==2 % 只看捕获的跳转
+    elseif updtMode==3 % 只看捕获的跳转　利用HMM　Estimation算法
+        %TR = hmmestimate(ichannel,ichannel,'Pseudotransitions',startting_matrix);
     end
     
     

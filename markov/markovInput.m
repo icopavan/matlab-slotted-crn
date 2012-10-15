@@ -15,24 +15,29 @@ pu_tmat_norm = [0.5 0.5; 0.5 0.5];
 pu_tmat_idle = [0.7 0.3; 0.7 0.3];
 
 % su transition matrix [num_ch * num_ch]
-su1_tmat = [ 0 1 0;
-             0 0 1;
-             1 0 0 ];
-su2_tmat = [ 0 0 1;
-             1 0 0;
-             0 1 0 ];
-% su1_tmat = [ 0.2 0.6 0.2;
-%              0.2 0.2 0.6;
-%              0.6 0.2 0.2 ];
-% su2_tmat = [ 0.2 0.2 0.6;
-%              0.6 0.2 0.2;
-%              0.2 0.6 0.2 ];
-
+% su1_tmat = [ 0 1 0;
+%              0 0 1;
+%              1 0 0 ];
+% su2_tmat = [ 0 0 1;
+%              1 0 0;
+%              0 1 0 ];
+su1_tmat = [ 0.2 0.6 0.2;
+             0.2 0.2 0.6;
+             0.6 0.2 0.2 ];
+su2_tmat = [ 0.2 0.2 0.6;
+             0.6 0.2 0.2;
+             0.2 0.6 0.2 ];
+% su1_tmat = [ 0.34 0.33 0.33;
+%              0.33 0.33 0.34;
+%              0.33 0.34 0.33 ];
+% su2_tmat = [ 0.33 0.33 0.34;
+%              0.33 0.33 0.34;
+%              0.33 0.33 0.34 ];
 
 
 
 % generate pu traffic matrix 1 - pu_off 2 - pu_on
-pu_trafficmat = [generatePU(num_slot,pu_tmat_busy) generatePU(num_slot,pu_tmat_norm) generatePU(num_slot,pu_tmat_idle)];
+pu_trafficmat = [generatePU(num_slot,pu_tmat_idle) generatePU(num_slot,pu_tmat_idle) generatePU(num_slot,pu_tmat_idle)];
 
  
 % generate su traffic and insert into pu traffic
@@ -43,14 +48,14 @@ trafficmat = addSU(pu_trafficmat,num_slot,su1_tmat,su2_tmat,su_set,num_ch);
 
 % method 1
 
-[ transition_matrix_su3 ] = getTransitionMatrix( trafficmat,3,channel_set,user_set);
-[ transition_matrix_su4 ] = getTransitionMatrix( trafficmat,4,channel_set,user_set);
-sniffer2=[transition_matrix_su3 su1_tmat transition_matrix_su4 su2_tmat]
-
-
-[ transition_matrix_su3_sniffer ] = verifyResult_2sniffer( trafficmat,num_slot,num_ch,channel_set,user_set,3,num_sniffer );
-[ transition_matrix_su4_sniffer ] = verifyResult_2sniffer( trafficmat,num_slot,num_ch,channel_set,user_set,4,num_sniffer );
-sniffer3=[transition_matrix_su3_sniffer su1_tmat transition_matrix_su4_sniffer su2_tmat]
+% [ transition_matrix_su3 ] = getTransitionMatrix( trafficmat,3,channel_set,user_set);
+% [ transition_matrix_su4 ] = getTransitionMatrix( trafficmat,4,channel_set,user_set);
+% sniffer2=[transition_matrix_su3 su1_tmat transition_matrix_su4 su2_tmat]
+% 
+% 
+% [ transition_matrix_su3_sniffer ] = verifyResult_2sniffer( trafficmat,num_slot,num_ch,channel_set,user_set,3,num_sniffer );
+% [ transition_matrix_su4_sniffer ] = verifyResult_2sniffer( trafficmat,num_slot,num_ch,channel_set,user_set,4,num_sniffer );
+% sniffer3=[transition_matrix_su3_sniffer su1_tmat transition_matrix_su4_sniffer su2_tmat]
 
 % error = abs(([transition_matrix_su3_sniffer transition_matrix_su4_sniffer]-[transition_matrix_su3 transition_matrix_su4])./[transition_matrix_su3 transition_matrix_su4]) % 每次看两个信道然后看过大概整个时隙数完成之后统计称什么样子
 % max_error = max(max(error))
@@ -67,11 +72,12 @@ sniffer3=[transition_matrix_su3_sniffer su1_tmat transition_matrix_su4_sniffer s
 % 1 sniffer best capture rate
 % 2 sniffer best capture rate
 
-[capture_rate_genie] = genieFunc( trafficmat,num_slot,3 );
-plot(1:num_slot,capture_rate_genie,'-b')
+[capture_rate_genie,capture_rate_ch,genie_vector] = genieFunc( trafficmat,num_slot,3 );
+[target_capture_rate,trm_su1,channel_history,observed_histroy,slot_capture]  = markovMABFunc( trafficmat,num_ch,num_slot,genie_vector ) ;
+plot(1:num_slot,target_capture_rate,'-b')
 hold on
-[capture_rate,trm_su1] = markovMABFunc( trafficmat,num_ch,num_slot ) ;
-plot(1:num_slot,capture_rate,'-r')
+plot(1:num_slot,repmat(capture_rate_ch',1,num_slot))
+
 trm_su1
 
 % [ total_reward,  reward_genie,  regret,total_reward_channel,count_captured_channel ] = ucb1Func( trafficmat,num_ch,num_slot,user_set );

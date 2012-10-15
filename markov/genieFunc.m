@@ -1,4 +1,4 @@
-function [capture_rate] = genieFunc( trafficmat,num_slot,target_index ) 
+function [capture_rate,capture_rate_ch,matrix_genie_sum] = genieFunc( trafficmat,num_slot,target_index ) 
 %GENIEFUNC Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -24,8 +24,8 @@ for t=1:num_slot
     capture_rate(t)= tmp_capture_rate;
 end
 
-
-
+matrix_genie_singleCh = sum(matrix_genie);
+capture_rate_ch = matrix_genie_singleCh/sum(matrix_genie_singleCh);
 
 end
 

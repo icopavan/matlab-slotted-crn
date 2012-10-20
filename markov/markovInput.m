@@ -74,7 +74,7 @@ trafficmat = addSU(pu_trafficmat,num_slot,su1_tmat,su2_tmat,su_set,num_ch);
 
 [capture_rate_genie,capture_rate_ch,genie_vector] = genieFunc( trafficmat,num_slot,3 );
 [target_capture_rate,trm_su1,channel_history,observed_histroy,slot_capture]  = markovMABFunc( trafficmat,num_ch,num_slot,genie_vector ) ;
-plot(1:num_slot,target_capture_rate,'-b')
+plot(1:num_slot,target_capture_rate,'-r')
 hold on
 plot(1:num_slot,repmat(capture_rate_ch',1,num_slot))
 

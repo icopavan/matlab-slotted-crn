@@ -195,7 +195,7 @@ for t=1:num_slot
         end
     elseif updtMode == 2 % 只看捕获的跳转　利用HMM　Estimation算法
         if isempty(capture_channel)~=1
-            trm_su1 = hmmestimate(capture_channel,capture_channel,'Pseudotransitions',startting_matrix);
+            trm_su1 = hmmestimate(ones(1,length(capture_channel)),capture_channel,'Pseudotransitions',startting_matrix);
             msd_su1 = getMarkovStableDistribution( trm_su1,num_ch );
         end
     elseif updtMode == 0 % 不更新

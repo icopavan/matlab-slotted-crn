@@ -41,7 +41,10 @@ su2_tmat_random = [ 0.33 0.33 0.34;
 su2_tmat_fixed  = su2_tmat_random;
 su2_tmat = su2_tmat_random;
 % generate pu traffic matrix 1 - pu_off 2 - pu_on
-pu_trafficmat = [generatePU(num_slot,pu_tmat_idle) generatePU(num_slot,pu_tmat_idle) generatePU(num_slot,pu_tmat_idle)];
+% pu_trafficmat = [generatePU(num_slot,pu_tmat_idle) generatePU(num_slot,pu_tmat_idle) generatePU(num_slot,pu_tmat_idle)];
+% pu_trafficmat = [generatePU(num_slot,pu_tmat_busy) generatePU(num_slot,pu_tmat_norm) generatePU(num_slot,pu_tmat_idle)];
+pu_trafficmat = [generatePU(num_slot,pu_tmat_idle) generatePU(num_slot,pu_tmat_norm) generatePU(num_slot,pu_tmat_busy)];
+
 % generate su traffic and insert into pu traffic
 trafficmat = addSU(pu_trafficmat,num_slot,su1_tmat,su2_tmat,su_set,num_ch);
 trafficmat_fixed = addSU(pu_trafficmat,num_slot,su1_tmat_fixed,su2_tmat_fixed,su_set,num_ch);
@@ -70,10 +73,10 @@ plot(1:num_slot,capture_rate_1sniffer_110,'-g');
 hold on
 [capture_rate_1sniffer_100,~,~,~,~] ...
     = markovMABFunc( trafficmat,num_ch,num_slot,genie_vector,1,0,0,su1_tmat);
-plot(1:num_slot,capture_rate_1sniffer_100,'-y');
+plot(1:num_slot,capture_rate_1sniffer_100,'-k');
 hold on
-plot(1:num_slot,repmat(mean(capture_rate_ch),1,num_slot),'-k');
-ylim([0 1]);
+plot(1:num_slot,repmat(mean(capture_rate_ch),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('1 sniffer 保守猜测: 精确更新 vs 粗略更新 ');
 xlabel('time slot');
 ylabel('target capture rate');
@@ -93,11 +96,11 @@ plot(1:num_slot,capture_rate_2sniffer_210,'-g');
 hold on
 [capture_rate_2sniffer_200,~,~,~,~] ...
     = markovMABFunc( trafficmat,num_ch,num_slot,genie_vector,2,0,0,su1_tmat);
-plot(1:num_slot,capture_rate_2sniffer_200,'-y');
+plot(1:num_slot,capture_rate_2sniffer_200,'-k');
 hold on
 plot(1:num_slot,repmat(mean([capture_rate_ch(1)+capture_rate_ch(2);...
-    capture_rate_ch(2)+capture_rate_ch(3);capture_rate_ch(1)+capture_rate_ch(3)]),1,num_slot),'-k');
-ylim([0 1]);
+    capture_rate_ch(2)+capture_rate_ch(3);capture_rate_ch(1)+capture_rate_ch(3)]),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('2 sniffer 保守猜测: 精确更新 vs 粗略更新');
 xlabel('time slot');
 ylabel('target capture rate');
@@ -117,10 +120,10 @@ plot(1:num_slot,capture_rate_1sniffer_120,'-g');
 hold on
 [capture_rate_1sniffer_100,~,~,~,~] ...
     = markovMABFunc( trafficmat,num_ch,num_slot,genie_vector,1,0,0,su1_tmat);
-plot(1:num_slot,capture_rate_1sniffer_100,'-y');
+plot(1:num_slot,capture_rate_1sniffer_100,'-k');
 hold on
-plot(1:num_slot,repmat(mean(capture_rate_ch),1,num_slot),'-k');
-ylim([0 1]);
+plot(1:num_slot,repmat(mean(capture_rate_ch),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('1 sniffer 激进猜测: 精确更新 vs 粗略更新 ');
 xlabel('time slot');
 ylabel('target capture rate');
@@ -140,11 +143,11 @@ plot(1:num_slot,capture_rate_2sniffer_220,'-g');
 hold on
 [capture_rate_2sniffer_200,~,~,~,~] ...
     = markovMABFunc( trafficmat,num_ch,num_slot,genie_vector,2,0,0,su1_tmat);
-plot(1:num_slot,capture_rate_2sniffer_200,'-y');
+plot(1:num_slot,capture_rate_2sniffer_200,'-k');
 hold on
 plot(1:num_slot,repmat(mean([capture_rate_ch(1)+capture_rate_ch(2);...
-    capture_rate_ch(2)+capture_rate_ch(3);capture_rate_ch(1)+capture_rate_ch(3)]),1,num_slot),'-k');
-ylim([0 1]);
+    capture_rate_ch(2)+capture_rate_ch(3);capture_rate_ch(1)+capture_rate_ch(3)]),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('2 sniffer 激进猜测: 精确更新 vs 粗略更新');
 xlabel('time slot');
 ylabel('target capture rate');
@@ -168,10 +171,10 @@ plot(1:num_slot,capture_rate_1sniffer_110_fixed,'-g');
 hold on
 [capture_rate_1sniffer_100_fixed,~,~,~,~] ...
     = markovMABFunc( trafficmat_fixed,num_ch,num_slot,genie_vector_fixed,1,0,0,su1_tmat_fixed);
-plot(1:num_slot,capture_rate_1sniffer_100_fixed,'-y');
+plot(1:num_slot,capture_rate_1sniffer_100_fixed,'-k');
 hold on
-plot(1:num_slot,repmat(mean(capture_rate_ch_fixed),1,num_slot),'-k');
-ylim([0 1]);
+plot(1:num_slot,repmat(mean(capture_rate_ch_fixed),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('1 sniffer 保守猜测: 精确更新 vs 粗略更新 ');
 xlabel('time slot');
 ylabel('target capture rate');
@@ -191,11 +194,11 @@ plot(1:num_slot,capture_rate_2sniffer_210_fixed,'-g');
 hold on
 [capture_rate_2sniffer_200_fixed,~,~,~,~] ...
     = markovMABFunc( trafficmat_fixed,num_ch,num_slot,genie_vector_fixed,2,0,0,su1_tmat_fixed);
-plot(1:num_slot,capture_rate_2sniffer_200_fixed,'-y');
+plot(1:num_slot,capture_rate_2sniffer_200_fixed,'-k');
 hold on
 plot(1:num_slot,repmat(mean([capture_rate_ch_fixed(1)+capture_rate_ch_fixed(2);...
-    capture_rate_ch_fixed(2)+capture_rate_ch_fixed(3);capture_rate_ch_fixed(1)+capture_rate_ch_fixed(3)]),1,num_slot),'-k');
-ylim([0 1]);
+    capture_rate_ch_fixed(2)+capture_rate_ch_fixed(3);capture_rate_ch_fixed(1)+capture_rate_ch_fixed(3)]),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('2 sniffer 保守猜测: 精确更新 vs 粗略更新');
 xlabel('time slot');
 ylabel('target capture rate');
@@ -215,10 +218,10 @@ plot(1:num_slot,capture_rate_1sniffer_120_fixed,'-g');
 hold on
 [capture_rate_1sniffer_100_fixed,~,~,~,~] ...
     = markovMABFunc( trafficmat_fixed,num_ch,num_slot,genie_vector_fixed,1,0,0,su1_tmat_fixed);
-plot(1:num_slot,capture_rate_1sniffer_100_fixed,'-y');
+plot(1:num_slot,capture_rate_1sniffer_100_fixed,'-k');
 hold on
-plot(1:num_slot,repmat(mean(capture_rate_ch_fixed),1,num_slot),'-k');
-ylim([0 1]);
+plot(1:num_slot,repmat(mean(capture_rate_ch_fixed),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('1 sniffer 激进猜测: 精确更新 vs 粗略更新 ');
 xlabel('time slot');
 ylabel('target capture rate');
@@ -238,11 +241,11 @@ plot(1:num_slot,capture_rate_2sniffer_220_fixed,'-g');
 hold on
 [capture_rate_2sniffer_200_fixed,~,~,~,~] ...
     = markovMABFunc( trafficmat_fixed,num_ch,num_slot,genie_vector_fixed,2,0,0,su1_tmat_fixed);
-plot(1:num_slot,capture_rate_2sniffer_200_fixed,'-y');
+plot(1:num_slot,capture_rate_2sniffer_200_fixed,'-k');
 hold on
 plot(1:num_slot,repmat(mean([capture_rate_ch_fixed(1)+capture_rate_ch_fixed(2);...
-    capture_rate_ch_fixed(2)+capture_rate_ch_fixed(3);capture_rate_ch_fixed(1)+capture_rate_ch_fixed(3)]),1,num_slot),'-k');
-ylim([0 1]);
+    capture_rate_ch_fixed(2)+capture_rate_ch_fixed(3);capture_rate_ch_fixed(1)+capture_rate_ch_fixed(3)]),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('2 sniffer 激进猜测: 精确更新 vs 粗略更新');
 xlabel('time slot');
 ylabel('target capture rate');
@@ -266,10 +269,10 @@ plot(1:num_slot,capture_rate_1sniffer_110_random,'-g');
 hold on
 [capture_rate_1sniffer_100_random,~,~,~,~] ...
     = markovMABFunc( trafficmat_random,num_ch,num_slot,genie_vector_random,1,0,0,su1_tmat_random);
-plot(1:num_slot,capture_rate_1sniffer_100_random,'-y');
+plot(1:num_slot,capture_rate_1sniffer_100_random,'-k');
 hold on
-plot(1:num_slot,repmat(mean(capture_rate_ch_random),1,num_slot),'-k');
-ylim([0 1]);
+plot(1:num_slot,repmat(mean(capture_rate_ch_random),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('1 sniffer 保守猜测: 精确更新 vs 粗略更新 ');
 xlabel('time slot');
 ylabel('target capture rate');
@@ -289,11 +292,11 @@ plot(1:num_slot,capture_rate_2sniffer_210_random,'-g');
 hold on
 [capture_rate_2sniffer_200_random,~,~,~,~] ...
     = markovMABFunc( trafficmat_random,num_ch,num_slot,genie_vector_random,2,0,0,su1_tmat_random);
-plot(1:num_slot,capture_rate_2sniffer_200_random,'-y');
+plot(1:num_slot,capture_rate_2sniffer_200_random,'-k');
 hold on
 plot(1:num_slot,repmat(mean([capture_rate_ch_random(1)+capture_rate_ch_random(2);...
-    capture_rate_ch_random(2)+capture_rate_ch_random(3);capture_rate_ch_random(1)+capture_rate_ch_random(3)]),1,num_slot),'-k');
-ylim([0 1]);
+    capture_rate_ch_random(2)+capture_rate_ch_random(3);capture_rate_ch_random(1)+capture_rate_ch_random(3)]),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('2 sniffer 保守猜测: 精确更新 vs 粗略更新');
 xlabel('time slot');
 ylabel('target capture rate');
@@ -313,10 +316,10 @@ plot(1:num_slot,capture_rate_1sniffer_120_random,'-g');
 hold on
 [capture_rate_1sniffer_100_random,~,~,~,~] ...
     = markovMABFunc( trafficmat_random,num_ch,num_slot,genie_vector_random,1,0,0,su1_tmat_random);
-plot(1:num_slot,capture_rate_1sniffer_100_random,'-y');
+plot(1:num_slot,capture_rate_1sniffer_100_random,'-k');
 hold on
-plot(1:num_slot,repmat(mean(capture_rate_ch_random),1,num_slot),'-k');
-ylim([0 1]);
+plot(1:num_slot,repmat(mean(capture_rate_ch_random),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('1 sniffer 激进猜测: 精确更新 vs 粗略更新 ');
 xlabel('time slot');
 ylabel('target capture rate');
@@ -336,11 +339,11 @@ plot(1:num_slot,capture_rate_2sniffer_220_random,'-g');
 hold on
 [capture_rate_2sniffer_200_random,~,~,~,~] ...
     = markovMABFunc( trafficmat_random,num_ch,num_slot,genie_vector_random,2,0,0,su1_tmat_random);
-plot(1:num_slot,capture_rate_2sniffer_200_random,'-y');
+plot(1:num_slot,capture_rate_2sniffer_200_random,'-k');
 hold on
 plot(1:num_slot,repmat(mean([capture_rate_ch_random(1)+capture_rate_ch_random(2);...
-    capture_rate_ch_random(2)+capture_rate_ch_random(3);capture_rate_ch_random(1)+capture_rate_ch_random(3)]),1,num_slot),'-k');
-ylim([0 1]);
+    capture_rate_ch_random(2)+capture_rate_ch_random(3);capture_rate_ch_random(1)+capture_rate_ch_random(3)]),1,num_slot),'-y');
+ylim([0.2 0.9]);
 title('2 sniffer 激进猜测: 精确更新 vs 粗略更新');
 xlabel('time slot');
 ylabel('target capture rate');

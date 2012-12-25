@@ -72,7 +72,7 @@ mn_indicator = 1;
 for t=1:T
     p_random = ones(1,N)/N; % 都是1/4
     slot_vector = matrix(t,:);
-    if mn_indicator ==1 
+    if mn_indicator ==1 %!!!! 
         mn = mnrnd(1,p_random,1); % 根据概率做一次(一个sniffer)选择  多个sniffer待改进
     end
      count_captured_channel(mn==1)=count_captured_channel(mn==1)+1;

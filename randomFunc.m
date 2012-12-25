@@ -4,7 +4,7 @@ function [ total_reward,  reward_genie,  regret,total_reward_channel,count_captu
 %   感兴趣的用户是编号4, 如果找到收益为1  TBD
 K = N;  % channel
 % target_index = 4; % [3 4 5 6 7]
-target_index = [3 4 5]; % [3 4 5 6 7]
+target_index = [3 4 5 ]; % [3 4 5 6 7]
 % target_index =  [3 4 5 6 7 8 9];
 % M = 1
 % 初始化

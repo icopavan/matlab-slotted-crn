@@ -7,7 +7,7 @@ N = 4 ; % 4个信道
 %T = 5000; % 5000个slot 则输入矩阵大小为5000*4
 M = 1; % 每个时隙从N个信道中选择一个信道去做捕包
 P = N; % 每个信道有一个licensed PU按照一定概率出现其持续长度符合一个柏松分布(TBD)
-S = 5; % 待商讨(TBD)是一个还是多个
+S = 7; % 待商讨(TBD)是一个还是多个
 
 % pu_transition_matrix 分三个类型 繁忙 正常 清闲
 % markov
@@ -20,7 +20,7 @@ pu_transition_matrix_idle = [0.7 0.3; 0.7 0.3];
 % value_matrix=zeros(N,T); % 这里指的是长度
 % identity_matrix=zeros(N,T); % 有三种身份  1 2 3 4 x x x
 pu_set = [1 2];  % [0 1] + 1 = [1 2] 1相当于空闲 2相当于主用户占用信道 
-su_set = [3 4 5 6 7]; % S = 5
+su_set = [3 4 5 6 7 8 9]; % S = 5
 % identity_set = [pu_set su_set] ; 
 
 %% 1st stage generate PU
@@ -40,6 +40,7 @@ if mode == 5 ;
        su_channel_set{n}=find(su_channel==n)+max(su_set)-S;
    end
 end
+save su.mat
 for t=1:T
      pu_matrix(t,:) = generateSU( pu_matrix(t,:),S,N,mode,su_set,su_channel_set);
 end

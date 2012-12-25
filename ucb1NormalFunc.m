@@ -1,11 +1,11 @@
-function [ total_reward,  reward_genie,  regret,total_reward_channel,count_captured_channel ] = ucb1NormalFunc( matrix,N,T )
+function [ total_reward,  reward_genie,  regret,total_reward_channel,count_captured_channel,capturerate ] = ucb1NormalFunc( matrix,N,T )
 %UCB1FUNC Summary of this function goes here
 %   Detailed explanation goes here
 % 假设有一个sniffer
 target_index = [3 4 5]; % [3 4 5 6 7]
-
+% target_index =  [3 4 5 6 7 8 9];
 % genie
-user_set = [1 2 3 4 5 6 7];
+user_set = [1 2 3 4 5 6 7 8 9];
 matrix_genie = matrix; %target_index = [3 4 5];
 user_not_care = setdiff(user_set,target_index);
 for user = user_not_care
@@ -77,6 +77,14 @@ for t=1:T
     regret(t) =  reward_genie(t)-sum(total_reward_channel);
     
     [total_reward(t) reward_genie(t) regret(t)] 
+        capturerate(t)=sum(total_reward(1:t))/sum(reward_genie(1:t));
+	if isinf(capturerate(t))==1
+        capturerate(t)=0;
+    end
+	if isnan(capturerate(t))==1
+        capturerate(t)=0;
+    end
+    % capturerate
 %     pause();
     % update decision index
     average_reward_channel = (total_reward_channel_initial+total_reward_channel)./(count_captured_channel_initial+count_captured_channel);
@@ -97,6 +105,6 @@ end
 
 
 total_reward_ucb1 = sum(total_reward_channel);
-plot(1:1:T,regret);
+% plot(1:1:T,regret,'c--');
 end
 

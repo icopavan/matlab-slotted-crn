@@ -33,9 +33,12 @@ matrix_genie_sum(matrix_genie_sum>1)=1;
 for t=1:T
     p_vector = (1-gamma)*w_vector/sum(w_vector)+gamma/K; % 初始化都是1/4
     slot_vector = matrix(t,:);
+    p_vector = [p_vector(1),p_vector(2),p_vector(3),1-p_vector(1)-p_vector(2)-p_vector(3)];
     mn = mnrnd(1,p_vector,1); % 根据概率做一次(一个sniffer)选择  多个sniffer待改进
     if isempty(find(mn==1))==1
-        mn;
+        mn
+        p_vector
+        pause()
     end
     channel_selected_exp3(t) = find(mn==1);
     captured_index = slot_vector * mn';
@@ -98,6 +101,6 @@ end
 %     end
 %     total_reward_genius_record(t) = total_reward_genius;
 % end
-plot(1:1:T,regret);
+plot(1:1:T,regret,'r-');
 end
 

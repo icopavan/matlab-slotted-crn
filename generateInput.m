@@ -25,8 +25,8 @@ su_set = [3 4 5 6 7 8 9]; % S = 5
 
 %% 1st stage generate PU
 % 4个channel分别为 busy norm norm idle
- pu_matrix = [generatePU(T,pu_transition_matrix_idle) generatePU(T,pu_transition_matrix_idle) ...
-    generatePU(T,pu_transition_matrix_idle) generatePU(T,pu_transition_matrix_idle)];
+ pu_matrix = [generatePU(T,pu_transition_matrix_norm) generatePU(T,pu_transition_matrix_norm) ...
+    generatePU(T,pu_transition_matrix_norm) generatePU(T,pu_transition_matrix_norm)];
 
 %% 2nd stage generate SU
 % mode = 5 ;

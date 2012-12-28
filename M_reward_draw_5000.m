@@ -97,7 +97,7 @@ xlim([0 5000]);
 % xlabel('Ê±Ï¶Êý');
 % ylabel('º¶Öµ');
 legend('3/7','4/7','5/7','6/7');
-title('Normal');
+title('Random');
 
 % figure
 % title('5000-50-7-3-0000-total_reward');

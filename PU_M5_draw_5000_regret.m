@@ -6,11 +6,11 @@ subplot(221);
 load 5000-50-7-5-0000.mat
 plot(1:1:T,regret1_a,'c--','LineWidth',2);
 hold on
-load 5000-50-7-5-2222.mat
+load 5000-50-7-5-1111.mat
 plot(1:1:T,regret1_a,'m-.','LineWidth',2);
-% hold on
-% load 5000-50-7-5-0000.mat
-% plot(1:1:T,regret1_a,'b:','LineWidth',2);
+hold on
+load 5000-50-7-5-2222.mat
+plot(1:1:T,regret1_a,'b:','LineWidth',2);
 % hold on
 % load 5000-50-7-6-0000.mat
 % plot(1:1:T,regret1_a,'r-','LineWidth',2);
@@ -22,18 +22,18 @@ ylim([0 1000]);
 xlim([0 5000]);
 % xlabel('时隙数');
 % ylabel('憾值');
-legend('Busy','Idle');
+legend('Idle','Normal','Busy');
 title('UCB1-Normal');
 
 subplot(222);
 load 5000-50-7-5-0000.mat
 plot(1:1:T,regret2_a,'c--','LineWidth',2);
 hold on
-load 5000-50-7-5-2222.mat
+load 5000-50-7-5-1111.mat
 plot(1:1:T,regret2_a,'m-.','LineWidth',2);
-% hold on
-% load 5000-50-7-5-0000.mat
-% plot(1:1:T,regret2_a,'b:','LineWidth',2);
+hold on
+load 5000-50-7-5-2222.mat
+plot(1:1:T,regret2_a,'b:','LineWidth',2);
 % hold on
 % load 5000-50-7-6-0000.mat
 % plot(1:1:T,regret2_a,'r-','LineWidth',2);
@@ -45,18 +45,18 @@ ylim([0 1000]);
 xlim([0 5000]);
 % xlabel('时隙数');
 % ylabel('憾值');
-legend('Busy','Idle'); 
+legend('Idle','Normal','Busy');
 title('Myopic');
 
 subplot(223);
 load 5000-50-7-5-0000.mat
 plot(1:1:T,regret3_a,'c--','LineWidth',2);
 hold on
-load 5000-50-7-5-2222.mat
+load 5000-50-7-5-1111.mat
 plot(1:1:T,regret3_a,'m-.','LineWidth',2);
-% hold on
-% load 5000-50-7-5-0000.mat
-% plot(1:1:T,regret3_a,'b:','LineWidth',2);
+hold on
+load 5000-50-7-5-2222.mat
+plot(1:1:T,regret3_a,'b:','LineWidth',2);
 % hold on
 % load 5000-50-7-6-0000.mat
 % plot(1:1:T,regret3_a,'r-','LineWidth',2);
@@ -68,18 +68,18 @@ ylim([0 1000]);
 xlim([0 5000]);
 % xlabel('时隙数');
 % ylabel('憾值');
-legend('Busy','Idle'); 
+legend('Idle','Normal','Busy');
 title('UCB1');
 
 subplot(224);
 load 5000-50-7-5-0000.mat
 plot(1:1:T,regret4_a,'c--','LineWidth',2);
 hold on
-load 5000-50-7-5-2222.mat
+load 5000-50-7-5-1111.mat
 plot(1:1:T,regret4_a,'m-.','LineWidth',2);
-% hold on
-% load 5000-50-7-5-0000.mat
-% plot(1:1:T,regret4_a,'b:','LineWidth',2);
+hold on
+load 5000-50-7-5-2222.mat
+plot(1:1:T,regret4_a,'b:','LineWidth',2);
 % hold on
 % load 5000-50-7-6-0000.mat
 % plot(1:1:T,regret4_a,'r-','LineWidth',2);
@@ -91,8 +91,8 @@ ylim([0 1000]);
 xlim([0 5000]);
 % xlabel('时隙数');
 % ylabel('憾值');
-legend('Busy','Idle'); 
-title('Normal');
+legend('Idle','Normal','Busy');
+title('Random');
 
 % figure
 % title('5000-50-7-3-0000-regret');

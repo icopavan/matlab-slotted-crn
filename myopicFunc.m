@@ -5,7 +5,7 @@ function [ total_reward,  reward_genie,  regret,total_reward_channel,count_captu
 K = N;  % channel
 % target_index = 4; % [3 4 5 6 7]
 % target_index = [3 4 5 6 7 8 9]; % [3 4 5 6 7]
-target_index = [3 4 5 ]; 
+target_index = [3 4 5 6 7]; 
 % M = 1
 % ≥ı ºªØ
 total_reward_channel = zeros(1,N);

@@ -2,7 +2,7 @@ function [ total_reward,  reward_genie,  regret,total_reward_channel,count_captu
 %UCB1FUNC Summary of this function goes here
 %   Detailed explanation goes here
 % 假设有一个sniffer
-target_index = [3 4 5 ]; % [3 4 5 6 7]
+target_index = [3 4 5 6 7 ]; % [3 4 5 6 7]
 % target_index =  [3 4 5 6 7 8 9];
 % genie
 user_set = [1 2 3 4 5 6 7 8 9];

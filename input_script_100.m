@@ -1,11 +1,11 @@
 clear;
 clc;
 N = 4 ; % 4个信道
-T = 100000; % 每个时隙从N个信道中选择一个信道去做捕包
+T = 5000; % 每个时隙从N个信道中选择一个信道去做捕包
 P = N; % 每个信道有一个licensed PU按照一定概率出现其持续长度符合一个柏松分布(TBD)
 S = 7; % 待商讨(TBD)是一个还是多个
 mode = 5; % 1 non-stochastic
-CC=10;
+CC=50;
 
 for cc=1:CC
 [ matrix,su_channel_set] = generateInput(T,mode);
@@ -81,4 +81,4 @@ plot(1:1:T,total_reward4_a,'r-');
 hold off
 legend('ucb1-normal','myopic','ucb1','random');
 
-save 100000-10-7-3-2222.mat
+save 5000-50-7-5-1111.mat

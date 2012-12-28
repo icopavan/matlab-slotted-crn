@@ -97,7 +97,7 @@ xlim([100 5000]);
 % xlabel('时隙数');
 % ylabel('目标数据包捕获率');
 legend('3/7','4/7','5/7','6/7');
-title('Normal');
+title('Random');
 
 % figure
 % title('5000-50-7-3-0000-capturerate');
